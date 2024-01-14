@@ -1,9 +1,18 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
+//final을 붙은 것에 대한 생성자를 만들어 준다 개좋음
+//@RequiredArgsConstructor
+//@Component를 적어두면 OrderServiceImpl를 인식 후 생성자 호출 -> AutoWired 찾고 MemberRepository DiscountPolicy 주입
+//OrderServiceImpl이 스프링 컨테이너에 들어가면 생성자를 호출해야해서 자동주입이 된다 따라서 제일먼저 호출된다
 public class OrderServiceImpl implements OrderService {
 
     // DIP 위반된 코드 FixDiscount에서 RateDiscount로 바꾸게 되면 impl 소스를 수정해야 하기 때문
@@ -20,8 +29,8 @@ public class OrderServiceImpl implements OrderService {
     // 구현체가 없기 때문에 이렇게만 해두면 에러발생 nullpoint deception (null에 . 찍으면 나는 에러)
     private final DiscountPolicy discountPolicy;
 
-
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    // 생성자가 하나일 때는 @AutoWired를 생략해도 됨
+    public OrderServiceImpl(MemberRepository memberRepository,@MainDiscountPolicy DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }

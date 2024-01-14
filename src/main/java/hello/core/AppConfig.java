@@ -24,7 +24,9 @@ public class AppConfig {
     // 실제로는 아래와 같이 1번만 조회된다
 /*  call AppConfig.memberService
     call AppConfig.memberRepository
-    call AppConfig.orderService*/
+    call AppConfig.orderService
+
+    비밀은 @Configuration에 있다 */
     @Bean
     public MemberService memberService(){
         System.out.println("call AppConfig.memberService");

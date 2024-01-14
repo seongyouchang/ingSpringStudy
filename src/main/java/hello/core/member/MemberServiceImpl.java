@@ -1,5 +1,9 @@
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 // 관례같은 것 구현체(실제 비즈니스 로직이 작성된것) 가 하나일 경우 인터페이스명 + impl을 많이 쓴다.
 public class MemberServiceImpl implements MemberService {
 
@@ -7,7 +11,7 @@ public class MemberServiceImpl implements MemberService {
     // 자동완성에서 커멘드 쉬프트 엔터하면 세미콜론까지 작성해줌
     private final MemberRepository memberRepository;
 
-
+    @Autowired // ac.getBean(MemberRepository.class)
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
